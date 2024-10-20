@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/in_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InGameActivity"
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/questionNumerTextView"
+        android:id="@+id/questionNumberTextView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="30sp"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintTop_toBottomOf="@+id/questionNumerTextView"
+        app:layout_constraintTop_toBottomOf="@+id/questionNumberTextView"
         android:layout_marginBottom="10dp"
         />
 

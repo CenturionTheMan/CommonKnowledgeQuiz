@@ -1,5 +1,6 @@
 package com.example.ckqkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +32,9 @@ class MainActivity : AppCompatActivity() {
         questionAmountEditText = findViewById(R.id.questionAmountEditText)
 
         startButton.setOnClickListener({v: View ->
-            setContentView(R.layout.activity_in_game)
+            val intent = Intent(applicationContext, InGameActivity::class.java)
+            intent.putExtra("questionsAmount", questionAmountEditText.text.toString())
+            startActivity(intent)
         })
     }
 }
