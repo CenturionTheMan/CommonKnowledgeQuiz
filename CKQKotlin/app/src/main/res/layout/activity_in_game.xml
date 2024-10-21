@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InGameActivity"
-    android:padding="10dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/questionNumberTextView"
@@ -35,37 +35,37 @@
         android:layout_height="30dp"
         android:layout_marginBottom="10dp"
         android:progressDrawable="@android:drawable/bottom_bar"
-        app:layout_constraintBottom_toTopOf="@+id/answerATextView"
+        app:layout_constraintBottom_toTopOf="@+id/answerAButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/answerATextView"
+    <Button
+        android:id="@+id/answerAButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/answerBTextView"
+        app:layout_constraintBottom_toTopOf="@+id/answerBButton"
         android:layout_marginBottom="10dp"
         />
-    <TextView
-        android:id="@+id/answerBTextView"
+    <Button
+        android:id="@+id/answerBButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test"
         android:textSize="20sp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/answerCTextView" />
-    <TextView
-        android:id="@+id/answerCTextView"
+        app:layout_constraintBottom_toTopOf="@+id/answerCButton" />
+    <Button
+        android:id="@+id/answerCButton"
         android:layout_width="match_parent"
         android:text="@string/test"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/answerDTextView" />
-    <TextView
-        android:id="@+id/answerDTextView"
+        app:layout_constraintBottom_toTopOf="@+id/answerDButton" />
+    <Button
+        android:id="@+id/answerDButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test"

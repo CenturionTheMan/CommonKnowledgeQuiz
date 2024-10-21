@@ -48,6 +48,8 @@
                 android:id="@+id/questionAmountEditText"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
+                android:text="10"
+                android:inputType="numberDecimal"
                 android:hint="@string/wpisz_liczb"/>
         </LinearLayout>
 
@@ -65,7 +67,8 @@
 
             <EditText
                 android:id="@+id/timePerQuestionEditText"
-                android:inputType="time"
+                android:inputType="numberDecimal"
+                android:text="30"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
                 android:hint="@string/wprowad_czas" />

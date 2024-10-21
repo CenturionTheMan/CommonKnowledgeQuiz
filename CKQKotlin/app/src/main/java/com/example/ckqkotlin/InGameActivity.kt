@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -17,10 +18,10 @@ class InGameActivity : AppCompatActivity() {
 
     lateinit var questionTextView : TextView
     lateinit var progressBar : ProgressBar
-    lateinit var answerATextView : TextView
-    lateinit var answerBTextView : TextView
-    lateinit var answerCTextView : TextView
-    lateinit var answerDTextView : TextView
+    lateinit var answerAButton : Button
+    lateinit var answerBButton : Button
+    lateinit var answerCButton : Button
+    lateinit var answerDButton : Button
 
     lateinit var questionNumberTextView : TextView
 
@@ -37,24 +38,49 @@ class InGameActivity : AppCompatActivity() {
             insets
         }
 
+        this.questionTextView = findViewById(R.id.questionTextView)
+        this.progressBar = findViewById(R.id.progressBar)
+        this.answerAButton = findViewById(R.id.answerAButton)
+        this.answerBButton = findViewById(R.id.answerBButton)
+        this.answerCButton = findViewById(R.id.answerCButton)
+        this.answerDButton = findViewById(R.id.answerDButton)
+        this.questionNumberTextView = findViewById(R.id.questionNumberTextView)
+
         val questionsAmount = this.intent.getStringExtra("questionsAmount")!!.toInt()
         this.questions = QuestionsPool.questions.asSequence().shuffled().take(questionsAmount).toList()
 
-        answerATextView.setOnClickListener { answerOnClick(0) }
-        answerBTextView.setOnClickListener { answerOnClick(1) }
-        answerCTextView.setOnClickListener { answerOnClick(2) }
-        answerDTextView.setOnClickListener { answerOnClick(3) }
+        answerAButton.setOnClickListener { answerOnClick(0) }
+        answerBButton.setOnClickListener { answerOnClick(1) }
+        answerCButton.setOnClickListener { answerOnClick(2) }
+        answerDButton.setOnClickListener { answerOnClick(3) }
 
+        setViewsWithCurrentQuestion(this.currentQuestionNumber)
     }
 
     private fun answerOnClick(selectedIndex: Int)
     {
+        if(this.currentQuestionNumber == questions.count() - 1)
+        {
+            TODO() //END SCREEN
+            return
+        }
+
         if(this.questions[this.currentQuestionNumber].correctIndex == selectedIndex)
             this.correctAnswers++
         this.currentQuestionNumber++
 
-        this.questionNumberTextView.text = "Pytanie " + this.currentQuestionNumber + "/" + questions.count()
+        setViewsWithCurrentQuestion(this.currentQuestionNumber)
     }
 
+    private fun setViewsWithCurrentQuestion(questionNumber: Int)
+    {
+        this.questionNumberTextView.text = "Pytanie " + (this.currentQuestionNumber+1) + "/" + questions.count()
+        this.questionTextView.text = questions[currentQuestionNumber].text
+        this.answerAButton.text = questions[currentQuestionNumber].answers[0]
+        this.answerBButton.text = questions[currentQuestionNumber].answers[1]
+        this.answerCButton.text = questions[currentQuestionNumber].answers[2]
+        this.answerDButton.text = questions[currentQuestionNumber].answers[3]
+        this.progressBar.setProgress(0, false)
+    }
 
 }
