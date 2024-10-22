@@ -25,8 +25,8 @@ class InGameActivity : AppCompatActivity() {
 
     lateinit var questionNumberTextView : TextView
 
-    var correctAnswers = 0
-    var currentQuestionNumber = 0
+    var correctAnswers: Int = 0
+    var currentQuestionNumber: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,9 @@ class InGameActivity : AppCompatActivity() {
         this.answerDButton = findViewById(R.id.answerDButton)
         this.questionNumberTextView = findViewById(R.id.questionNumberTextView)
 
+        correctAnswers = 0
+        currentQuestionNumber = 0
+
         val questionsAmount = this.intent.getStringExtra("questionsAmount")!!.toInt()
         this.questions = QuestionsPool.questions.asSequence().shuffled().take(questionsAmount).toList()
 
@@ -54,14 +57,16 @@ class InGameActivity : AppCompatActivity() {
         answerCButton.setOnClickListener { answerOnClick(2) }
         answerDButton.setOnClickListener { answerOnClick(3) }
 
-        setViewsWithCurrentQuestion(this.currentQuestionNumber)
+        setViewsWithCurrentQuestion()
     }
 
     private fun answerOnClick(selectedIndex: Int)
     {
         if(this.currentQuestionNumber == questions.count() - 1)
         {
-            TODO() //END SCREEN
+            val intent = Intent(applicationContext, GameResult::class.java)
+            intent.putExtra("correctAmount", correctAnswers)
+            startActivity(intent)
             return
         }
 
@@ -69,10 +74,10 @@ class InGameActivity : AppCompatActivity() {
             this.correctAnswers++
         this.currentQuestionNumber++
 
-        setViewsWithCurrentQuestion(this.currentQuestionNumber)
+        setViewsWithCurrentQuestion()
     }
 
-    private fun setViewsWithCurrentQuestion(questionNumber: Int)
+    private fun setViewsWithCurrentQuestion()
     {
         this.questionNumberTextView.text = "Pytanie " + (this.currentQuestionNumber+1) + "/" + questions.count()
         this.questionTextView.text = questions[currentQuestionNumber].text
