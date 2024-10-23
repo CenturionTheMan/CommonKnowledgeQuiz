@@ -1,5 +1,6 @@
 package com.example.ckqkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -36,8 +37,9 @@ class GameResult : AppCompatActivity() {
 
         resultTextView.text = resultText
 
-        layout.setOnClickListener({v: View ->
-            setContentView(R.layout.activity_main)
-        })
+        layout.setOnClickListener { v: View ->
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

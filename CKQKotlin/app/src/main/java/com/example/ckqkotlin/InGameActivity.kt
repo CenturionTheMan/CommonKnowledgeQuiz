@@ -84,6 +84,7 @@ class InGameActivity : AppCompatActivity() {
     private fun checkIfGameEnd(): Boolean {
         if(this.currentQuestionNumber == questions.count() - 1)
         {
+            timer?.cancel()
             val intent = Intent(applicationContext, GameResult::class.java)
             intent.putExtra("questionAmount", questions.count())
             intent.putExtra("correctAmount", correctAnswers)

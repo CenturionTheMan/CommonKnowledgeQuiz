@@ -67,8 +67,24 @@ class MainActivity : AppCompatActivity() {
 
         startButton.setOnClickListener { v: View ->
             val intent = Intent(applicationContext, InGameActivity::class.java)
-            intent.putExtra("questionsAmount", questionAmountEditText.text.toString().toInt())
-            intent.putExtra("timePerQuestion", timePerQuestionEditText.text.toString().toInt())
+
+            if(questionAmountEditText.text.toString().isEmpty())
+            {
+                intent.putExtra("questionsAmount", 1)
+            }
+            else
+            {
+                intent.putExtra("questionsAmount", questionAmountEditText.text.toString().toInt())
+            }
+
+            if(timePerQuestionEditText.text.toString().isEmpty())
+            {
+                intent.putExtra("timePerQuestion", 1)
+            }
+            else
+            {
+                intent.putExtra("timePerQuestion", timePerQuestionEditText.text.toString().toInt())
+            }
             startActivity(intent)
         }
     }
@@ -76,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     private fun validateInputStringAsNumber(text: String, def: Int, minRange: Int?, maxRange: Int?) : String?{
         if(text.isEmpty())
         {
-            return def.toString()
+            return null
         }
 
         try {
