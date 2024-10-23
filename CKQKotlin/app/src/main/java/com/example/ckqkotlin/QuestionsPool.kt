@@ -4,7 +4,7 @@ class QuestionsPool {
     companion object {
         val questions = arrayOf(
             QuizQuestion(
-                "Co jest stolicą Polski?", 0,
+                "Które z miast jest stolicą Polski?", 0,
                 answers = arrayOf(
                     "Warszawa",
                     "Kraków",
@@ -132,7 +132,7 @@ class QuestionsPool {
                     "1939")),
 
             QuizQuestion(
-                "Który zwierzęcy symbol ma Chiny?", 3,
+                "Które zwierzę jest symbolem Chin?", 3,
                 answers = arrayOf(
                     "Orzeł",
                     "Krokodyl",
