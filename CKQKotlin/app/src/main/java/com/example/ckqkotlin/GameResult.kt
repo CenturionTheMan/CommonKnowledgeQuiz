@@ -25,9 +25,10 @@ class GameResult : AppCompatActivity() {
         var resultTextView = findViewById<TextView>(R.id.resultTextView)
 
         val correct = this.intent.getIntExtra("correctAmount", -1)
+        var questionsAmount = this.intent.getIntExtra("questionAmount", -1)
 
         resultTextView.setText(
-            "Twój wynik to: " + correct + "/" + QuestionsPool.questions.count()
+            "Twój wynik to: " + correct + "/" + questionsAmount
         )
 
         layout.setOnClickListener({v: View ->

@@ -85,6 +85,7 @@ class InGameActivity : AppCompatActivity() {
         if(this.currentQuestionNumber == questions.count() - 1)
         {
             val intent = Intent(applicationContext, GameResult::class.java)
+            intent.putExtra("questionAmount", questions.count())
             intent.putExtra("correctAmount", correctAnswers)
             startActivity(intent)
             return true

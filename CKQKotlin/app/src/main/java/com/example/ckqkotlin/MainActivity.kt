@@ -13,6 +13,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.math.max
+import kotlin.math.min
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,15 +40,11 @@ class MainActivity : AppCompatActivity() {
         questionAmountEditText.setText((QuestionsPool.questions.count() / 2).toString())
 
         questionAmountEditText.addTextChangedListener(object: TextWatcher {
-            @SuppressLint("SetTextI18n")
             override fun afterTextChanged(p0: Editable?) {
-                if(questionAmountEditText.text.toString().toInt() < 1)
+                val tmp = ValidateInputStringAsNumber(p0.toString(), 1, 1, QuestionsPool.questions.count())
+                if(tmp != null)
                 {
-                    questionAmountEditText.setText("1")
-                }
-                else if(questionAmountEditText.text.toString().toInt() > QuestionsPool.questions.count())
-                {
-                    questionAmountEditText.setText(QuestionsPool.questions.count().toString())
+                    questionAmountEditText.setText(tmp)
                 }
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -55,9 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         timePerQuestionEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(timePerQuestionEditText.text.toString().toInt() < 1)
+                val tmp = ValidateInputStringAsNumber(p0.toString(), 1,1, null)
+                if(tmp != null)
                 {
-                    timePerQuestionEditText.setText("1")
+                    timePerQuestionEditText.setText(tmp)
                 }
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -72,5 +71,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun ValidateInputStringAsNumber(text: String, def: Int, minRange: Int?, maxRange: Int?) : String?{
+        if(text.isEmpty())
+        {
+            return def.toString()
+        }
+
+        try {
+            var num : Int= text.toInt()
+            if(minRange != null && num < minRange)
+            {
+                return minRange.toString()
+            }
+            else if(maxRange != null && maxRange < num)
+            {
+                 return maxRange.toString()
+            }
+            else
+            {
+                return null
+            }
+        }
+        catch (e : Error)
+        {
+            return def.toString()
+        }
+    }
 
 }
+
+
+
