@@ -5,11 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+
     tools:context=".MainActivity">
 
     <TextView
-        android:textColor="@color/beige"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
@@ -41,40 +40,39 @@
             tools:ignore="UselessParent">
 
             <TextView
-                android:textColor="@color/beige"
                 android:layout_width="200dp"
                 android:layout_height="48sp"
                 android:text="Ilość pytań w rozgrywce: "
                 tools:ignore="HardcodedText" />
 
             <EditText
-                android:textColor="@color/beige"
                 android:id="@+id/questionAmountEditText"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
-                android:text="10"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:hint="@string/wpisz_liczb"
                 android:inputType="numberDecimal"
-                android:hint="@string/wpisz_liczb"/>
+                android:text="10" />
         </LinearLayout>
 
         <LinearLayout
-            android:textColor="@color/beige"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
             <TextView
-                android:textColor="@color/beige"
                 android:layout_width="200dp"
                 android:layout_height="48sp"
                 android:text="Czas na pytanie: "
                 tools:ignore="HardcodedText" />
 
             <EditText
-                android:textColor="@color/beige"
                 android:id="@+id/timePerQuestionEditText"
                 android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
                 android:text="10"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
@@ -89,8 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20sp"
-        android:backgroundTint="@color/darkBlue"
-        android:textColor="@color/beige"
+        android:textSize="20sp"
         android:text="@string/rozpocznij"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

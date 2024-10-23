@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InGameActivity"
-    android:padding="30dp">
+    android:layout_margin="15dp"
+    >
 
     <TextView
         android:id="@+id/questionNumberTextView"
@@ -38,7 +39,6 @@
         android:indeterminateDrawable="@android:drawable/progress_horizontal"
         android:max="3"
         android:progress="1"
-        android:progressTint="#A42B2B"
         app:layout_constraintBottom_toTopOf="@+id/answerAButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
