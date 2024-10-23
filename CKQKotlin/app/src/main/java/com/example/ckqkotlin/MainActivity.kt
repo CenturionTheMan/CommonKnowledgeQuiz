@@ -37,11 +37,13 @@ class MainActivity : AppCompatActivity() {
         timePerQuestionEditText = findViewById(R.id.timePerQuestionEditText)
         questionAmountEditText = findViewById(R.id.questionAmountEditText)
 
-        questionAmountEditText.setText((QuestionsPool.questions.count() / 2).toString())
+        val questionAmount = (QuestionsPool.questions.count() / 2).toString()
+
+        questionAmountEditText.setText(questionAmount)
 
         questionAmountEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                val tmp = ValidateInputStringAsNumber(p0.toString(), 1, 1, QuestionsPool.questions.count())
+                val tmp = validateInputStringAsNumber(p0.toString(), 1, 1, QuestionsPool.questions.count())
                 if(tmp != null)
                 {
                     questionAmountEditText.setText(tmp)
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         timePerQuestionEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                val tmp = ValidateInputStringAsNumber(p0.toString(), 1,1, null)
+                val tmp = validateInputStringAsNumber(p0.toString(), 1,1, null)
                 if(tmp != null)
                 {
                     timePerQuestionEditText.setText(tmp)
@@ -71,25 +73,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun ValidateInputStringAsNumber(text: String, def: Int, minRange: Int?, maxRange: Int?) : String?{
+    private fun validateInputStringAsNumber(text: String, def: Int, minRange: Int?, maxRange: Int?) : String?{
         if(text.isEmpty())
         {
             return def.toString()
         }
 
         try {
-            var num : Int= text.toInt()
-            if(minRange != null && num < minRange)
-            {
-                return minRange.toString()
-            }
-            else if(maxRange != null && maxRange < num)
-            {
-                 return maxRange.toString()
-            }
-            else
-            {
-                return null
+            val num : Int= text.toInt()
+            return if(minRange != null && num < minRange) {
+                minRange.toString()
+            } else if(maxRange != null && maxRange < num) {
+                maxRange.toString()
+            } else {
+                null
             }
         }
         catch (e : Error)
