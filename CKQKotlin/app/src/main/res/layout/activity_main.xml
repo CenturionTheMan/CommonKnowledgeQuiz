@@ -68,7 +68,7 @@
             <EditText
                 android:id="@+id/timePerQuestionEditText"
                 android:inputType="numberDecimal"
-                android:text="30"
+                android:text="10"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
                 android:hint="@string/wprowad_czas" />

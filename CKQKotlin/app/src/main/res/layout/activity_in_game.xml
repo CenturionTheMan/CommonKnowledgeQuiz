@@ -34,7 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginBottom="10dp"
-        android:progressDrawable="@android:drawable/bottom_bar"
+        android:indeterminate="false"
+        android:indeterminateDrawable="@android:drawable/progress_horizontal"
+        android:max="3"
+        android:progress="1"
+        android:progressTint="#A42B2B"
         app:layout_constraintBottom_toTopOf="@+id/answerAButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         timePerQuestionEditText = findViewById(R.id.timePerQuestionEditText)
         questionAmountEditText = findViewById(R.id.questionAmountEditText)
 
+        questionAmountEditText.setText((QuestionsPool.questions.count() / 2).toString())
+
         questionAmountEditText.addTextChangedListener(object: TextWatcher {
             @SuppressLint("SetTextI18n")
             override fun afterTextChanged(p0: Editable?) {
@@ -62,11 +64,12 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        startButton.setOnClickListener({v: View ->
+        startButton.setOnClickListener { v: View ->
             val intent = Intent(applicationContext, InGameActivity::class.java)
-            intent.putExtra("questionsAmount", questionAmountEditText.text.toString())
+            intent.putExtra("questionsAmount", questionAmountEditText.text.toString().toInt())
+            intent.putExtra("timePerQuestion", timePerQuestionEditText.text.toString().toInt())
             startActivity(intent)
-        })
+        }
     }
 
 

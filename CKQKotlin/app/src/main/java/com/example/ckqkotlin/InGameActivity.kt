@@ -3,6 +3,7 @@ package com.example.ckqkotlin
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -11,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.time.times
 
 class InGameActivity : AppCompatActivity() {
 
@@ -27,6 +29,10 @@ class InGameActivity : AppCompatActivity() {
 
     var correctAnswers: Int = 0
     var currentQuestionNumber: Int = 0
+
+    var timePerQuestionMax: Int = -1
+
+    var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,10 @@ class InGameActivity : AppCompatActivity() {
         correctAnswers = 0
         currentQuestionNumber = 0
 
-        val questionsAmount = this.intent.getStringExtra("questionsAmount")!!.toInt()
+        this.timePerQuestionMax = this.intent.getIntExtra("timePerQuestion", -1)
+        this.progressBar.max = timePerQuestionMax * 10
+
+        val questionsAmount = this.intent.getIntExtra("questionsAmount", -1)
         this.questions = QuestionsPool.questions.asSequence().shuffled().take(questionsAmount).toList()
 
         answerAButton.setOnClickListener { answerOnClick(0) }
@@ -62,19 +71,25 @@ class InGameActivity : AppCompatActivity() {
 
     private fun answerOnClick(selectedIndex: Int)
     {
-        if(this.currentQuestionNumber == questions.count() - 1)
-        {
-            val intent = Intent(applicationContext, GameResult::class.java)
-            intent.putExtra("correctAmount", correctAnswers)
-            startActivity(intent)
+        if(checkIfGameEnd())
             return
-        }
 
         if(this.questions[this.currentQuestionNumber].correctIndex == selectedIndex)
             this.correctAnswers++
         this.currentQuestionNumber++
 
         setViewsWithCurrentQuestion()
+    }
+
+    private fun checkIfGameEnd(): Boolean {
+        if(this.currentQuestionNumber == questions.count() - 1)
+        {
+            val intent = Intent(applicationContext, GameResult::class.java)
+            intent.putExtra("correctAmount", correctAnswers)
+            startActivity(intent)
+            return true
+        }
+        return false
     }
 
     private fun setViewsWithCurrentQuestion()
@@ -85,7 +100,28 @@ class InGameActivity : AppCompatActivity() {
         this.answerBButton.text = questions[currentQuestionNumber].answers[1]
         this.answerCButton.text = questions[currentQuestionNumber].answers[2]
         this.answerDButton.text = questions[currentQuestionNumber].answers[3]
-        this.progressBar.setProgress(0, false)
-    }
+        this.progressBar.progress = this.progressBar.max
 
+        timer?.cancel()
+        timer = object: CountDownTimer(1000 * timePerQuestionMax.toLong() , 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                runOnUiThread {
+                    progressBar.progress -= 1
+                }
+            }
+
+            override fun onFinish() {
+                runOnUiThread{
+                    progressBar.progress = 0
+                }
+
+                if(checkIfGameEnd())
+                    return
+
+                currentQuestionNumber++
+                setViewsWithCurrentQuestion()
+            }
+        }
+        this.timer!!.start()
+    }
 }
