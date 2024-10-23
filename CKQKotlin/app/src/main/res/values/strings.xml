@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CKQKotlin</string>
     <string name="rozpocznij">ROZPOCZNIJ</string>
+    <string name="wpisz_liczb">wprowadź liczbę</string>
+    <string name="wprowad_czas">wprowadź czas</string>
+    <string name="test">TEST</string>
 </resources>
