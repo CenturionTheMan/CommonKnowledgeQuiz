@@ -16,23 +16,23 @@ import kotlin.time.times
 
 class InGameActivity : AppCompatActivity() {
 
-    lateinit var questions : List<QuizQuestion>
+    private lateinit var questions : List<QuizQuestion>
 
-    lateinit var questionTextView : TextView
+    private lateinit var questionTextView : TextView
     lateinit var progressBar : ProgressBar
-    lateinit var answerAButton : Button
-    lateinit var answerBButton : Button
-    lateinit var answerCButton : Button
-    lateinit var answerDButton : Button
+    private lateinit var answerAButton : Button
+    private lateinit var answerBButton : Button
+    private lateinit var answerCButton : Button
+    private lateinit var answerDButton : Button
 
-    lateinit var questionNumberTextView : TextView
+    private lateinit var questionNumberTextView : TextView
 
-    var correctAnswers: Int = 0
+    private var correctAnswers: Int = 0
     var currentQuestionNumber: Int = 0
 
     var timePerQuestionMax: Int = -1
 
-    var timer: CountDownTimer? = null
+    private var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +95,12 @@ class InGameActivity : AppCompatActivity() {
 
     private fun setViewsWithCurrentQuestion()
     {
-        this.questionNumberTextView.text = "Pytanie " + (this.currentQuestionNumber+1) + "/" + questions.count()
+        this.questionNumberTextView.text = buildString {
+            append("Pytanie ")
+            append(currentQuestionNumber + 1)
+            append("/")
+            append(questions.count())
+        }
         this.questionTextView.text = questions[currentQuestionNumber].text
         this.answerAButton.text = questions[currentQuestionNumber].answers[0]
         this.answerBButton.text = questions[currentQuestionNumber].answers[1]
