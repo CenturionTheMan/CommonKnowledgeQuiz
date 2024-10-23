@@ -21,15 +21,20 @@ class GameResult : AppCompatActivity() {
             insets
         }
 
-        var layout = findViewById<ConstraintLayout>(R.id.game_result)
-        var resultTextView = findViewById<TextView>(R.id.resultTextView)
+        val layout = findViewById<ConstraintLayout>(R.id.game_result)
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
 
         val correct = this.intent.getIntExtra("correctAmount", -1)
-        var questionsAmount = this.intent.getIntExtra("questionAmount", -1)
+        val questionsAmount = this.intent.getIntExtra("questionAmount", -1)
 
-        resultTextView.setText(
-            "Twój wynik to: " + correct + "/" + questionsAmount
-        )
+        val resultText = buildString {
+            append("Twój wynik to: ")
+            append(correct)
+            append("/")
+            append(questionsAmount)
+        }
+
+        resultTextView.text = resultText
 
         layout.setOnClickListener({v: View ->
             setContentView(R.layout.activity_main)
