@@ -18,7 +18,6 @@ class GameResult : AppCompatActivity() {
 
 
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
