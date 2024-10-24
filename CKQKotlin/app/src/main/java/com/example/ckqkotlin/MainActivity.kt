@@ -1,25 +1,17 @@
 package com.example.ckqkotlin
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import android.window.OnBackInvokedCallback
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
