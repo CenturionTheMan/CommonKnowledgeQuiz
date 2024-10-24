@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
 
     <TextView
@@ -48,9 +49,11 @@
                 android:id="@+id/questionAmountEditText"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
-                android:text="10"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:hint="@string/wpisz_liczb"
                 android:inputType="numberDecimal"
-                android:hint="@string/wpisz_liczb"/>
+                android:text="10" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,6 +71,8 @@
             <EditText
                 android:id="@+id/timePerQuestionEditText"
                 android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
                 android:text="10"
                 android:layout_width="150sp"
                 android:layout_height="48sp"
@@ -82,10 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20sp"
+        android:textSize="20sp"
         android:text="@string/rozpocznij"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
