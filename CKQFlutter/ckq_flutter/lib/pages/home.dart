@@ -1,4 +1,5 @@
 import 'package:ckq_flutter/Utils/quiz_question.dart';
+import 'package:ckq_flutter/pages/in_game.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +19,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _questionAmount = (QuizQuestion.getQuestionAmount() / 2) as int;
+    _questionAmount = (QuizQuestion.getQuestionAmount() / 2).round();
 
+    _controllerQuestionAmount = TextEditingController();
     _controllerQuestionAmount.addListener(() {
       String newText = _controllerQuestionAmount.text;
       if (newText.isEmpty ||
@@ -117,7 +119,14 @@ class _HomePageState extends State<HomePage> {
         Container(
           margin: const EdgeInsets.all(20),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (conext) => InGame(
+                          questionsAmount: _questionAmount,
+                          timePerQuestion: _timePerQuestion)));
+            },
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 50),
                 maximumSize: const Size(500, 50),
