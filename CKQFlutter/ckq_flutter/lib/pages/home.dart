@@ -1,7 +1,60 @@
+import 'package:ckq_flutter/Utils/quiz_question.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late TextEditingController _controllerQuestionAmount;
+  late TextEditingController _controllerTimePerQuestion;
+  late int _questionAmount;
+  int _timePerQuestion = 10;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _questionAmount = (QuizQuestion.getQuestionAmount() / 2) as int;
+
+    _controllerQuestionAmount.addListener(() {
+      String newText = _controllerQuestionAmount.text;
+      if (newText.isEmpty ||
+          int.tryParse(newText) == null ||
+          int.parse(newText) < 1) {
+        setState(() {
+          _controllerQuestionAmount.text = _questionAmount.toString();
+        });
+        return;
+      }
+      _questionAmount = int.parse(_controllerQuestionAmount.text);
+    });
+
+    _controllerTimePerQuestion = TextEditingController();
+    _controllerTimePerQuestion.text = _timePerQuestion.toString();
+    _controllerTimePerQuestion.addListener(() {
+      String newText = _controllerTimePerQuestion.text;
+      if (newText.isEmpty ||
+          int.tryParse(newText) == null ||
+          int.parse(newText) < 1) {
+        setState(() {
+          _controllerTimePerQuestion.text = _timePerQuestion.toString();
+        });
+        return;
+      }
+      _timePerQuestion = int.parse(_controllerTimePerQuestion.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controllerQuestionAmount.dispose();
+    _controllerTimePerQuestion.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +72,12 @@ class HomePage extends StatelessWidget {
         ),
         Container(
             margin: const EdgeInsets.all(20),
-            child: const Column(
+            child: Column(
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 180,
                       child: Text(
                         "Liczba pytań: ",
@@ -33,8 +86,9 @@ class HomePage extends StatelessWidget {
                     ),
                     Flexible(
                         child: TextField(
+                            controller: _controllerQuestionAmount,
                             cursorWidth: BorderSide.strokeAlignCenter,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 labelText: "Wpisz liczbe")))
                   ],
@@ -42,7 +96,7 @@ class HomePage extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 180,
                       child: Text(
                         "Czas na pytanie: ",
@@ -51,8 +105,9 @@ class HomePage extends StatelessWidget {
                     ),
                     Flexible(
                         child: TextField(
+                            controller: _controllerTimePerQuestion,
                             cursorWidth: BorderSide.strokeAlignCenter,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
                                 labelText: "Wpisz liczbe sekund")))
                   ],
