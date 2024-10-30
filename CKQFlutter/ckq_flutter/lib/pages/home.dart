@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: AppColors.blue,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,6 +148,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                     child: TextField(
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(color: AppColors.white, fontSize: 20),
                   controller: _controllerQuestionAmount,
                   cursorWidth: BorderSide.strokeAlignCenter,
@@ -170,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                     child: TextField(
+                        keyboardType: TextInputType.number,
                         controller: _controllerTimePerQuestion,
                         style: const TextStyle(
                             color: AppColors.white, fontSize: 20),

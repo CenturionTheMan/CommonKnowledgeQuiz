@@ -16,6 +16,7 @@ class GameResult extends StatelessWidget {
         onTap: () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => const HomePage())),
         child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: AppColors.blue,
             body: Center(
               child: Column(

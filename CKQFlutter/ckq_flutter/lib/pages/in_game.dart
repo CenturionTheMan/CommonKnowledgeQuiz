@@ -59,6 +59,7 @@ class _InGameState extends State<InGame> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.blue,
         body: Center(
           child: Column(
