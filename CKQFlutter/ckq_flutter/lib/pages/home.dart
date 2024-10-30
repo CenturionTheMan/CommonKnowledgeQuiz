@@ -1,7 +1,9 @@
 import 'package:ckq_flutter/Utils/app_colors.dart';
+import 'package:ckq_flutter/Utils/custom_numeric_input_formatter.dart';
 import 'package:ckq_flutter/Utils/quiz_question.dart';
 import 'package:ckq_flutter/pages/in_game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,79 +15,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late TextEditingController _controllerQuestionAmount;
   late TextEditingController _controllerTimePerQuestion;
-  late int _questionAmount;
-  int _timePerQuestion = 10;
 
   @override
   void initState() {
     super.initState();
-    _questionAmount = (QuizQuestion.getQuestionAmount() / 2).round();
 
     _controllerQuestionAmount = TextEditingController();
-    _controllerQuestionAmount.text = _questionAmount.toString();
-    _controllerQuestionAmount.addListener(() {
-      String newText = _controllerQuestionAmount.text;
-      if (newText == _questionAmount.toString()) {
-        return;
-      }
-      int? num = int.tryParse(newText);
-      if (newText.isEmpty) {
-        setState(() {
-          _controllerQuestionAmount.text = "1";
-        });
-        return;
-      }
-      if (num == null) {
-        setState(() {
-          _controllerQuestionAmount.text = _questionAmount.toString();
-        });
-        return;
-      }
-      if (num < 1) {
-        setState(() {
-          _controllerQuestionAmount.text = "1";
-        });
-        return;
-      }
-      if (num > QuizQuestion.getQuestionAmount()) {
-        setState(() {
-          _controllerQuestionAmount.text =
-              QuizQuestion.getQuestionAmount().toString();
-        });
-        return;
-      }
-      _questionAmount = int.parse(_controllerQuestionAmount.text);
-    });
+    _controllerQuestionAmount.text =
+        (QuizQuestion.getQuestionAmount() / 2).round().toString();
 
     _controllerTimePerQuestion = TextEditingController();
-    _controllerTimePerQuestion.text = _timePerQuestion.toString();
-    _controllerTimePerQuestion.addListener(() {
-      String newText = _controllerTimePerQuestion.text;
-      if (newText == _timePerQuestion.toString()) {
-        return;
-      }
-      int? num = int.tryParse(newText);
-      if (newText.isEmpty) {
-        setState(() {
-          _controllerTimePerQuestion.text = "1";
-        });
-        return;
-      }
-      if (num == null) {
-        setState(() {
-          _controllerTimePerQuestion.text = _timePerQuestion.toString();
-        });
-        return;
-      }
-      if (num < 1) {
-        setState(() {
-          _controllerTimePerQuestion.text = "1";
-        });
-        return;
-      }
-
-      _timePerQuestion = int.parse(_controllerTimePerQuestion.text);
-    });
+    _controllerTimePerQuestion.text = "10";
   }
 
   @override
@@ -117,9 +57,11 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (conext) => InGame(
-                      questionsAmount: _questionAmount,
-                      timePerQuestion: _timePerQuestion)));
+                  builder: (context) => InGame(
+                      questionsAmount:
+                          int.parse(_controllerQuestionAmount.text.toString()),
+                      timePerQuestion: int.parse(
+                          _controllerTimePerQuestion.text.toString()))));
         },
         style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -148,7 +90,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                     child: TextField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: const TextInputType.numberWithOptions(
+                      signed: false, decimal: false),
+                  inputFormatters: [
+                    CustomNumericInputFormatter(
+                        minValue: 1, maxValue: QuizQuestion.getQuestionAmount())
+                  ],
                   style: const TextStyle(color: AppColors.white, fontSize: 20),
                   controller: _controllerQuestionAmount,
                   cursorWidth: BorderSide.strokeAlignCenter,
@@ -172,7 +119,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                     child: TextField(
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            signed: false, decimal: false),
+                        inputFormatters: [
+                          CustomNumericInputFormatter(minValue: 1)
+                        ],
                         controller: _controllerTimePerQuestion,
                         style: const TextStyle(
                             color: AppColors.white, fontSize: 20),
