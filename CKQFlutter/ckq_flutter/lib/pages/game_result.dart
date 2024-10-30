@@ -1,3 +1,4 @@
+import 'package:ckq_flutter/Utils/app_colors.dart';
 import 'package:ckq_flutter/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -9,31 +10,53 @@ class GameResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage())),
-      child: Scaffold(
-          body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              'Poprawne odpowiedzi: ${correctAmount}/${questionAmount}',
-              style: const TextStyle(fontSize: 40),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              'Naciśnij gdziekolwiek żeby kontynować...',
-              style: TextStyle(fontSize: 10),
-              textAlign: TextAlign.center,
-            ),
-          )
-        ],
-      )),
+    return PopScope(
+      canPop: false,
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const HomePage())),
+        child: Scaffold(
+            backgroundColor: AppColors.blue,
+            body: Center(
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        correctAnswCountText(),
+                        const Spacer(flex: 1),
+                        const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            'Naciśnij żeby kontynuować...',
+                            style:
+                                TextStyle(fontSize: 15, color: AppColors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const Spacer(flex: 1),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
+    );
+  }
+
+  Padding correctAnswCountText() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Text(
+        'Twój wynik to: $correctAmount/$questionAmount',
+        style: const TextStyle(fontSize: 35, color: AppColors.white),
+      ),
     );
   }
 }
