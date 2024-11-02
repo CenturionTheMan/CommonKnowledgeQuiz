@@ -16,10 +16,12 @@
       "supportsTablet": true
     },
     "android": {
+     "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ckqreact"
     },
     "web": {
       "bundler": "metro",
