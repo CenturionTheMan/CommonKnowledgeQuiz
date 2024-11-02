@@ -15,8 +15,8 @@ export default function Index() {
   const context = useQuestionContext();
 
 
-  const [numberOfQuestions, setNumberOfQuestions] = useState("25");
-  const [timePerQuestion, setTimePerQuestion] = useState("10");
+  const [numberOfQuestions, setNumberOfQuestions] = useState(context.numberOfQuestions.toString());
+  const [timePerQuestion, setTimePerQuestion] = useState(context.timePerQuestion.toString());
   const generateQuestionIndexes = (numberOfQuestions: number) => {
     const uniqueIndexes = new Set<number>();
     while (uniqueIndexes.size < numberOfQuestions) {
@@ -63,6 +63,7 @@ export default function Index() {
       context.setTimePerQuestion(time);
       const questionIndexes = generateQuestionIndexes(questions);
       context.setQuestionIndexes(questionIndexes);
+      context.setCorrectAnswers(0);
       router.navigate("/question")
     });
 

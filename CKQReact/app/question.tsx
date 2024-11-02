@@ -35,12 +35,13 @@ export default function Question() {
         currentQuestion.current += 1;
         setCurrentQuestionIndex(questionIndexes[currentQuestion.current]);
     } else {
-        // router.navigate("/result");
+        router.navigate("/result");
     }
 
 
     setProgress(1);
   }
+
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -50,7 +51,7 @@ export default function Question() {
                 setCurrentQuestionIndex(questionIndexes[currentQuestion.current]);
                 return 1;
             } else {
-                // router.navigate("/result");
+                router.navigate("/result");
             }
         }
         return prev - (intervalTime / 1000) / totalTime;
