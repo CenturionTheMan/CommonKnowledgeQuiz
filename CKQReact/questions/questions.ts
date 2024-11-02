@@ -6,7 +6,7 @@ type Question = {
 
 export const questions: Question[] = [
   {
-    text: "Które z miast jest stolicą Polski?",
+    text: "Które z tych miast jest stolicą Polski?",
     correctIndex: 0,
     answers: ["Warszawa", "Kraków", "Gdańsk", "Wrocław"]
   },

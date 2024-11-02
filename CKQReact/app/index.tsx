@@ -6,12 +6,24 @@ import { StatusBar } from 'expo-status-bar';
 import {useState, useCallback} from "react";
 import {router} from 'expo-router'
 
+import {useQuestionContext} from "@/components/contextProviders/questionContext";
+
 export default function Index() {
   const colorSchemeValue = useColorScheme();
   const colorScheme = colorSchemeValue === "light" ? "light" : "dark";
   NavigationBar.setBackgroundColorAsync(Colors[colorScheme].background);
+  const context = useQuestionContext();
+
+
   const [numberOfQuestions, setNumberOfQuestions] = useState("25");
   const [timePerQuestion, setTimePerQuestion] = useState("10");
+  const generateQuestionIndexes = (numberOfQuestions: number) => {
+    const uniqueIndexes = new Set<number>();
+    while (uniqueIndexes.size < numberOfQuestions) {
+      uniqueIndexes.add(Math.floor(Math.random() * 50));
+    }
+    return Array.from(uniqueIndexes);
+  };
 
   const handleNumberOfQuestionsChange = useCallback((value: string) => {
     const number = parseInt(value);
@@ -44,9 +56,15 @@ export default function Index() {
     }
   }, [setTimePerQuestion]);
 
-    const handleStartQuiz = useCallback(() => {
-    router.navigate("/question")
-    }, []);
+    const handleStartQuiz = (() => {
+      const questions = parseInt(numberOfQuestions);
+      context.setNumberOfQuestions(questions);
+      const time = parseInt(timePerQuestion);
+      context.setTimePerQuestion(time);
+      const questionIndexes = generateQuestionIndexes(questions);
+      context.setQuestionIndexes(questionIndexes);
+      router.navigate("/question")
+    });
 
   return (
     <>
