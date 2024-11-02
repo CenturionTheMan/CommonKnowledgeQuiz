@@ -1,10 +1,9 @@
-import {ifElse} from "ansi-fragments";
 import {Text, useColorScheme, View} from "react-native";
 import {Button, TextInput } from "react-native-paper";
 import {Colors} from "@/constants/Colors";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from 'expo-status-bar';
-import {useState} from "react";
+import {useState, useCallback} from "react";
 
 export default function Index() {
   const colorSchemeValue = useColorScheme();
@@ -13,36 +12,36 @@ export default function Index() {
   const [numberOfQuestions, setNumberOfQuestions] = useState("25");
   const [timePerQuestion, setTimePerQuestion] = useState("10");
 
-  function handleNumberOfQuestionsChange(value: string) {
+  const handleNumberOfQuestionsChange = useCallback((value: string) => {
     const number = parseInt(value);
     if (isNaN(number)) {
-        setNumberOfQuestions("");
-        return;
+      setNumberOfQuestions("");
+      return;
     }
     if (number > 50) {
-        setNumberOfQuestions("50");
+      setNumberOfQuestions("50");
     } else if (number < 1) {
-        setNumberOfQuestions("1");
+      setNumberOfQuestions("1");
     } else {
-        setNumberOfQuestions(number.toString());
+      setNumberOfQuestions(number.toString());
     }
-  }
+  }, [setNumberOfQuestions]);
 
-    function handleTimePerQuestionChange(value: string) {
-        const number = parseInt(value);
-        if (isNaN(number)) {
-            setTimePerQuestion("");
-            return;
-        }
-
-        if (number > 60) {
-            setTimePerQuestion("60");
-        } else if (number < 1) {
-            setTimePerQuestion("1");
-        } else {
-            setTimePerQuestion(number.toString());
-        }
+    const handleTimePerQuestionChange = useCallback((value: string) => {
+    const number = parseInt(value);
+    if (isNaN(number)) {
+      setTimePerQuestion("");
+      return;
     }
+
+    if (number > 60) {
+      setTimePerQuestion("60");
+    } else if (number < 1) {
+      setTimePerQuestion("1");
+    } else {
+      setTimePerQuestion(number.toString());
+    }
+  }, [setTimePerQuestion]);
 
   return (
     <>
