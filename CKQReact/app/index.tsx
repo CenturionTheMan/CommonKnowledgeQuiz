@@ -1,9 +1,10 @@
-import {Text, useColorScheme, View} from "react-native";
+import {Text, useColorScheme, View, StatusBar as NativeBar, Platform, SafeAreaView} from "react-native";
 import {Button, TextInput } from "react-native-paper";
 import {Colors} from "@/constants/Colors";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from 'expo-status-bar';
 import {useState, useCallback} from "react";
+import {router} from 'expo-router'
 
 export default function Index() {
   const colorSchemeValue = useColorScheme();
@@ -43,18 +44,24 @@ export default function Index() {
     }
   }, [setTimePerQuestion]);
 
+    const handleStartQuiz = useCallback(() => {
+    router.navigate("/question")
+    }, []);
+
   return (
     <>
     <StatusBar backgroundColor={Colors[colorScheme].background}/>
+    <SafeAreaView style={{flex: 1}}>
     <View
       style={{
       flex: 1,
+      paddingTop: Platform.OS === "android" ? NativeBar.currentHeight : 0,
       backgroundColor: Colors[colorScheme].background,
     }}>
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
@@ -91,9 +98,10 @@ export default function Index() {
         paddingBottom: 20,
       }}
     >
-      <Button mode={'contained'} labelStyle={{fontSize: 18}} textColor={Colors[colorScheme].text} buttonColor={Colors[colorScheme].primary}>ROZPOCZNIJ</Button>
+      <Button onPress={() => handleStartQuiz()} mode={'contained'} labelStyle={{fontSize: 18}} textColor={Colors[colorScheme].text} buttonColor={Colors[colorScheme].primary}>ROZPOCZNIJ</Button>
     </View>
     </View>
+    </SafeAreaView>
     </>
   );
 }
