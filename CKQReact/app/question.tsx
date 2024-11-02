@@ -2,7 +2,8 @@ import {Colors} from "@/constants/Colors";
 import * as NavigationBar from "expo-navigation-bar";
 import {StatusBar} from "expo-status-bar";
 import {Text, useColorScheme, View, SafeAreaView, StatusBar as NativeBar, Platform} from "react-native";
-import {Button, ProgressBar, MD3Colors} from "react-native-paper";
+import {Button, ProgressBar} from "react-native-paper";
+import {useEffect, useState} from "react";
 
 
 export default function Question() {
@@ -10,6 +11,25 @@ export default function Question() {
   const colorScheme = colorSchemeValue === "light" ? "light" : "dark";
   NavigationBar.setBackgroundColorAsync(Colors[colorScheme].background);
   const statusBarHeight = NativeBar.currentHeight;
+
+  const [progress, setProgress] = useState(1);
+  const totalTime = 10; // total time in seconds
+  const intervalTime = 100; // interval time in milliseconds
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - (intervalTime / 1000) / totalTime;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
     <StatusBar backgroundColor={Colors[colorScheme].background}/>
@@ -29,7 +49,7 @@ export default function Question() {
         justifyContent: "space-evenly",
         alignItems: "stretch",
         paddingHorizontal: 20,}}>
-          <ProgressBar style={{marginBottom: 5, backgroundColor: Colors[colorScheme].progressBackground}} progress={0.5} color={"#FFFFFF"}></ProgressBar>
+          <ProgressBar style={{marginBottom: 5, backgroundColor: Colors[colorScheme].progressBackground}} animatedValue={progress} color={"#FFFFFF"}></ProgressBar>
           <Button mode={'contained'} labelStyle={{fontSize: 18}} textColor={Colors[colorScheme].text} buttonColor={Colors[colorScheme].primary}>1</Button>
           <Button mode={'contained'}>1</Button>
           <Button mode={'contained'}>1</Button>
