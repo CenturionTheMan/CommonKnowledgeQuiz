@@ -58,10 +58,13 @@ class _HomePageState extends State<HomePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => InGame(
-                      questionsAmount:
-                          int.parse(_controllerQuestionAmount.text.toString()),
-                      timePerQuestion: int.parse(
-                          _controllerTimePerQuestion.text.toString()))));
+                      questionsAmount: _controllerQuestionAmount.text.isEmpty
+                          ? 1
+                          : int.parse(_controllerQuestionAmount.text),
+                      timePerQuestion: _controllerTimePerQuestion.text.isEmpty
+                          ? 1
+                          : int.parse(
+                              _controllerTimePerQuestion.text.toString()))));
         },
         style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomNumericInputFormatter extends TextInputFormatter {
@@ -11,7 +10,7 @@ class CustomNumericInputFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.isEmpty) {
-      return TextEditingValue(text: minValue.toString());
+      return const TextEditingValue(text: "");
     }
 
     int? number = int.tryParse(newValue.text);
