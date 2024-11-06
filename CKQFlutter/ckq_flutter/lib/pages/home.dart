@@ -103,9 +103,13 @@ class _HomePageState extends State<HomePage> {
                   controller: _controllerQuestionAmount,
                   cursorWidth: BorderSide.strokeAlignCenter,
                   decoration: const InputDecoration(
+                    hintText: "wprowadź liczbę",
+                    hintStyle: TextStyle(color: AppColors.white),
                     border: UnderlineInputBorder(),
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: AppColors.white)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2)),
                   ),
                 ))
               ],
@@ -132,11 +136,16 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.white, fontSize: 20),
                         cursorWidth: BorderSide.strokeAlignCenter,
                         decoration: const InputDecoration(
-                            fillColor: Colors.white,
-                            border: UnderlineInputBorder(),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: AppColors.white)))))
+                          hintText: "wprowadź czas",
+                          hintStyle: TextStyle(color: AppColors.white),
+                          fillColor: Colors.white,
+                          border: UnderlineInputBorder(),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2)),
+                        )))
               ],
             ),
           ],
