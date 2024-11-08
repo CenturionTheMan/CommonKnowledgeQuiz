@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import {useState, useCallback} from "react";
 import {router} from 'expo-router'
 
+import {questions} from "@/questions/questions";
+
 import {useQuestionContext} from "@/components/contextProviders/questionContext";
 
 export default function Index() {
@@ -31,7 +33,7 @@ export default function Index() {
       setNumberOfQuestions("");
       return;
     }
-    if (number > 50) {
+    if (number > questions.length) {
       setNumberOfQuestions("50");
     } else if (number < 1) {
       setNumberOfQuestions("1");
